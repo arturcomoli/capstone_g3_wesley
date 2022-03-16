@@ -1,6 +1,11 @@
+import { AuthenticationProvider } from "./Authentication";
 import { TestProvider } from "./TestProvider";
 
 const Providers = ({ children }) => {
-  return <TestProvider>{children}</TestProvider>;
+  return (
+    <AuthenticationProvider>
+      <TestProvider>{children}</TestProvider>
+    </AuthenticationProvider>
+  );
 };
 export default Providers;
