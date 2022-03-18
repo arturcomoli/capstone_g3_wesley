@@ -8,11 +8,11 @@ import Providers from "./providers";
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <ChakraProvider>
-        <Providers>
+      <Providers>
+        <ChakraProvider>
           <App />
-        </Providers>
-      </ChakraProvider>
+        </ChakraProvider>
+      </Providers>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
