@@ -1,6 +1,5 @@
 import api from "../../services/api";
 import { createContext, useContext, useState } from "react";
-import { toast } from "@chakra-ui/react";
 
 const AuthenticationContext = createContext();
 
@@ -13,25 +12,25 @@ export const AuthenticationProvider = ({ children }) => {
     localStorage.getItem("@user:KenzieWarmup") || ""
   );
 
-  const handleSignUpAuth = async (data, history) => {
+  const handleSignUpAuth = async (data, history, toast) => {
     await api
       .post("/signup", data)
-      .catch((err) =>
-        toast({
-          title: "Algo de errado ocorreu!",
-          status: "error",
-        })
-      )
       .then((res) => {
         toast({
           title: "Usuário cadastrado com sucesso!",
           status: "success",
         });
         history.push("/login");
-      });
+      })
+      .catch((err) =>
+        toast({
+          title: "Algo de errado ocorreu!",
+          status: "error",
+        })
+      );
   };
 
-  const handleLoginAuth = async (data, history) => {
+  const handleLoginAuth = async (data, history, toast) => {
     const response = await api.post("/login", data).catch((err) =>
       toast({
         title: "Algo de errado ocorreu!",
@@ -47,7 +46,7 @@ export const AuthenticationProvider = ({ children }) => {
     localStorage.setItem("@user:KenzieWarmup", JSON.stringify(user));
 
     toast({
-      title: "Usuário cadastrado com sucesso!",
+      title: "Usuário logado com sucesso!",
       status: "success",
     });
     history.push("/dashboard");

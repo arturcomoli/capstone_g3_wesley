@@ -1,6 +1,5 @@
 import api from "../../services/api";
 import { createContext, useContext } from "react";
-import { toast } from "@chakra-ui/react";
 
 const ExercisesListContext = createContext();
 
@@ -15,7 +14,7 @@ export const ExercisesListProvider = ({ children }) => {
     },
   };
 
-  const addToUserList = async (data) => {
+  const addToUserList = async (data, toast) => {
     const { id } = user;
     const newData = { ...data, userId: id };
     await api
@@ -34,7 +33,7 @@ export const ExercisesListProvider = ({ children }) => {
       );
   };
 
-  const deleteFromUserList = async (data) => {
+  const deleteFromUserList = async (data, toast) => {
     const { id } = data;
     await api
       .delete(`/userlists/${id}`, options)

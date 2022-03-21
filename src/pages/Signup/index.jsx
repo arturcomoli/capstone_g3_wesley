@@ -24,18 +24,15 @@ import LoginBackgroundDesktop from "../../assets/background/image12.png";
 import LoginBackgroundMobile from "../../assets/background/image34.png";
 import LogoWhite from "../../assets/logo/Kenzie.WarmUp.svg";
 import { MotionCenter, MotionDiv } from "./motion";
-//import { useAuthenticationProvider } from "../../providers/Authentication";
+import { useAuthenticationProvider } from "../../providers/Authentication";
+import { Redirect } from "react-router-dom";
 
 const Signup = () => {
   const history = useHistory();
 
   const toast = useToast();
 
-  //const { handleSignUpAuth, token } = useAuthenticationProvider();
-
-  // if (token) {
-  //   redirecionar
-  // }
+  const { handleSignUpAuth, token } = useAuthenticationProvider();
 
   const signUpSchema = yup.object().shape({
     name: yup
@@ -67,9 +64,13 @@ const Signup = () => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(signUpSchema) });
 
+  if (token) {
+    return <Redirect to="/dashboard" />;
+  }
+
   const handleCreateUser = (data) => {
     delete data.confirm_password;
-    //handleSignUpAuth(data, history, toast);
+    handleSignUpAuth(data, history, toast);
   };
 
   const handleNavigation = (path) => {
@@ -364,7 +365,7 @@ const Signup = () => {
             <Text>
               Já possui uma?{" "}
               <Button
-                onClick={() => handleNavigation("/login")}
+                onClick={() => handleNavigation("/")}
                 variant={"link"}
                 color={"#ff9f1a"}
               >

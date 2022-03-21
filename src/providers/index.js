@@ -1,5 +1,5 @@
 import { AuthenticationProvider } from "./Authentication";
-import ExercisesListProvider from "./ExercisesList";
+import { ExercisesListProvider } from "./ExercisesList";
 
 const Providers = ({ children }) => {
   return (
