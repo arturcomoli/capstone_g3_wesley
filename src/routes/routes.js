@@ -1,12 +1,12 @@
 import { Route } from "react-router-dom";
 import { Switch } from "react-router-dom";
-import TestPage from "../pages/TestPage";
+import Signup from "../pages/Signup";
 
 const Routes = () => {
   return (
     <Switch>
       <Route exact path="/">
-        <TestPage />
+        <Signup />
       </Route>
     </Switch>
   );
