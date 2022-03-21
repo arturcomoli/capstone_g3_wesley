@@ -19,18 +19,25 @@ import {
   PopoverContent,
   PopoverTrigger,
   Text,
+  useToast,
   VStack,
 } from "@chakra-ui/react";
 import LoginBackgroundDesktop from "../../assets/background/image11.png";
 import LoginBackgroundMobile from "../../assets/background/image33.png";
 import LogoWhite from "../../assets/logo/Kenzie.WarmUp.svg";
+
 import { MotionCenter, MotionDiv } from "./motion";
-//import useAuthenticationProvider from "../../providers/Authentication";
+
+
+import { useAuthenticationProvider } from "../../providers/Authentication";
+import { Redirect } from "react-router-dom";
+
 
 const Login = () => {
   const history = useHistory();
+  const toast = useToast();
 
-  //const { handleLoginAuth } = useAuthenticationProvider();
+  const { handleLoginAuth, token } = useAuthenticationProvider();
 
   const loginSchema = yup.object().shape({
     email: yup.string().required("Campo obrigatório").email("Email inválido"),
@@ -43,8 +50,12 @@ const Login = () => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(loginSchema) });
 
+  if (token) {
+    return <Redirect to="/dashboard" />;
+  }
+
   const handleLogin = (data) => {
-    // handleLoginAuth(data, "/dashboard");
+    handleLoginAuth(data, history, toast);
   };
 
   const handleNavigation = (path) => {
