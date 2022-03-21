@@ -12,12 +12,19 @@ import {
   FormLabel,
   Image,
   Input,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverTrigger,
   Text,
   VStack,
 } from "@chakra-ui/react";
 import LoginBackgroundDesktop from "../../assets/background/image11.png";
 import LoginBackgroundMobile from "../../assets/background/image33.png";
 import LogoWhite from "../../assets/logo/Kenzie.WarmUp.svg";
+import { MotionCenter, MotionDiv } from "./motion";
 //import useAuthenticationProvider from "../../providers/Authentication";
 
 const Login = () => {
@@ -47,11 +54,20 @@ const Login = () => {
   return (
     <Flex
       h={"100vh"}
+      w={"100vw"}
+      overflow={"hidden"}
+      justifyContent={"flex-start"}
       sx={{
         bgImage: LoginBackgroundDesktop,
         bgRepeat: "no-repeat",
         bgPos: "right",
-        bgSize: "content",
+        bgSize: "cover",
+        "@media (max-width:768px)": {
+          bgImage: LoginBackgroundMobile,
+          bgPos: "right",
+          bgSize: "50vh",
+          bgColor: "#000",
+        },
         "@media (max-width:425px)": {
           bgImage: LoginBackgroundMobile,
           bgPos: "center",
@@ -59,109 +75,149 @@ const Login = () => {
         },
       }}
     >
-      <Center
+      <MotionCenter
+        initial={{ opacity: 0, width: 0 }}
+        animate={{ opacity: 1, width: "30vw" }}
+        transition={{ duration: 0.25 }}
         sx={{
-          minW: "375px",
-          w: "30vw",
+          h: "100vh",
           bgColor: "#000",
+          "@media (max-width:1024px)": {
+            minW: "375px",
+            minH: "650px",
+            bg: "#000",
+          },
+          "@media (max-width:768px)": {
+            minW: "375px",
+            minH: "650px",
+            bg: "#000",
+          },
           "@media (max-width:425px)": {
+            minW: "375px",
+            minH: "650px",
             width: "100vw",
             bg: "none",
           },
         }}
         color={"#fff"}
       >
-        <VStack>
-          <Image src={LogoWhite} />
+        <MotionDiv
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+        >
+          <VStack>
+            <Image src={LogoWhite} />
 
-          <form onSubmit={handleSubmit(handleLogin)}>
-            <Center flexDirection={"column"}>
-              {/* INPUT EMAIL */}
-              <FormControl
-                display={"flex"}
-                flexDir={"column"}
-                alignItems={"center"}
-                my={4}
-                isInvalid={errors.email}
-              >
-                <FormLabel textAlign={"center"} fontWeight={"bold"}>
-                  Email
-                  <Input
-                    textAlign={"center"}
-                    variant={"unstyled"}
-                    {...register("email")}
-                    type="email"
-                    borderBottom={
-                      errors.password
-                        ? "4px solid #FF530D"
-                        : "4px solid #ff9f1a"
-                    }
-                    borderRadius={"none"}
-                  />
-                </FormLabel>
-                {errors.email ? (
-                  <FormErrorMessage color={"#FF530D"}>
-                    {errors.email.message}
-                  </FormErrorMessage>
-                ) : (
-                  <FormHelperText>Insira seu email</FormHelperText>
-                )}
-              </FormControl>
+            <form onSubmit={handleSubmit(handleLogin)}>
+              <Center flexDirection={"column"}>
+                {/* INPUT EMAIL */}
+                <FormControl
+                  display={"flex"}
+                  flexDir={"column"}
+                  alignItems={"center"}
+                  my={4}
+                  isInvalid={errors.email}
+                >
+                  <FormLabel textAlign={"center"} fontWeight={"bold"}>
+                    Email
+                    <Popover autoFocus={false}>
+                      <PopoverTrigger>
+                        <Input
+                          textAlign={"center"}
+                          variant={"unstyled"}
+                          {...register("email")}
+                          type="email"
+                          borderBottom={
+                            errors.password
+                              ? "4px solid #FF530D"
+                              : "4px solid #ff9f1a"
+                          }
+                          borderRadius={"none"}
+                          placeholder={errors.email ? errors.email.message : ""}
+                          _placeholder={{ color: "#FF530D" }}
+                          py={2}
+                        />
+                      </PopoverTrigger>
+                      <PopoverContent bgColor={"#000"}>
+                        <PopoverArrow />
+                        <PopoverCloseButton />
+                        <PopoverBody mt={4}>
+                          {errors.email
+                            ? errors.email.message
+                            : "Insira seu email"}
+                        </PopoverBody>
+                      </PopoverContent>
+                    </Popover>
+                  </FormLabel>
+                </FormControl>
 
-              {/* INPUT SENHA */}
-              <FormControl
-                display={"flex"}
-                flexDir={"column"}
-                alignItems={"center"}
-                my={4}
-                isInvalid={errors.password}
-              >
-                <FormLabel textAlign={"center"} fontWeight={"bold"}>
-                  Senha
-                  <Input
-                    textAlign={"center"}
-                    {...register("password")}
-                    type="password"
-                    variant={"unstyled"}
-                    borderBottom={
-                      errors.password
-                        ? "4px solid #FF530D"
-                        : "4px solid #ff9f1a"
-                    }
-                    borderRadius={"none"}
-                  />
-                </FormLabel>
-                {errors.password ? (
-                  <FormErrorMessage color={"#FF530D"}>
-                    {errors.password.message}
-                  </FormErrorMessage>
-                ) : (
-                  <FormHelperText>Insira sua senha</FormHelperText>
-                )}
-              </FormControl>
-              {/* BUTTON SUBMIT */}
+                {/* INPUT SENHA */}
+                <FormControl
+                  display={"flex"}
+                  flexDir={"column"}
+                  alignItems={"center"}
+                  my={4}
+                  isInvalid={errors.password}
+                >
+                  <FormLabel textAlign={"center"} fontWeight={"bold"}>
+                    Senha
+                    <Popover autoFocus={false}>
+                      <PopoverTrigger>
+                        <Input
+                          textAlign={"center"}
+                          {...register("password")}
+                          type="password"
+                          variant={"unstyled"}
+                          borderBottom={
+                            errors.password
+                              ? "4px solid #FF530D"
+                              : "4px solid #ff9f1a"
+                          }
+                          borderRadius={"none"}
+                          placeholder={
+                            errors.password ? errors.password.message : ""
+                          }
+                          _placeholder={{ color: "#FF530D" }}
+                          py={2}
+                        />
+                      </PopoverTrigger>
+                      <PopoverContent bgColor={"#000"}>
+                        <PopoverArrow />
+                        <PopoverCloseButton />
+                        <PopoverBody mt={4}>
+                          {errors.password
+                            ? errors.password.message
+                            : "Insira sua senha"}
+                        </PopoverBody>
+                      </PopoverContent>
+                    </Popover>
+                  </FormLabel>
+                </FormControl>
+                {/* BUTTON SUBMIT */}
+                <Button
+                  bgColor={"#ff9f1a"}
+                  _hover={{ filter: "brightness(1.1)" }}
+                  type="submit"
+                  my={2}
+                >
+                  Login
+                </Button>
+              </Center>
+            </form>
+            <Text>
+              Novo por aqui?{" "}
               <Button
-                bgColor={"#ff9f1a"}
-                _hover={{ filter: "brightness(1.1)" }}
-                type="submit"
-                my={2}
+                onClick={() => handleNavigation("/signup")}
+                variant={"link"}
+                color={"#ff9f1a"}
               >
-                Login
+                Cadastre-se
               </Button>
-            </Center>
-          </form>
-          <Text>
-            Novo por aqui?{" "}
-            <Button
-              onClick={() => handleNavigation("/signup")}
-              variant={"link"}
-              color={"#ff9f1a"}
-            >
-              Cadastre-se
-            </Button>
-          </Text>
-        </VStack>
-      </Center>
+            </Text>
+          </VStack>
+        </MotionDiv>
+      </MotionCenter>
     </Flex>
   );
 };
