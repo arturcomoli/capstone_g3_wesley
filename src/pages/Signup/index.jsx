@@ -11,27 +11,30 @@ import {
   Image,
   Input,
   Text,
+  useToast,
   VStack,
 } from "@chakra-ui/react";
-import { motion } from "framer-motion";
 import LoginBackgroundDesktop from "../../assets/background/image12.png";
 import LoginBackgroundMobile from "../../assets/background/image34.png";
 import LogoWhite from "../../assets/logo/Kenzie.WarmUp.svg";
-//import useAuthenticationProvider from "../../providers/Authentication";
+import { useAuthenticationProvider } from "../../providers/Authentication";
 
 const Signup = () => {
   const history = useHistory();
 
-  // const { handleRegistration } = useAuthenticationProvider();
+  const toast = useToast();
+
+  const { handleSignUpAuth, token } = useAuthenticationProvider();
+
+  if (token) {
+    // redirecionar
+  }
 
   const signUpSchema = yup.object().shape({
     name: yup
       .string()
       .required("Campo obrigatório")
-      .matches(
-        /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ]+$/,
-        "Use apenas letras"
-      ),
+      .matches(/^[A-zÀ-ú]*([A-z-À-ú ]*[A-z-À-ú])$/, "Use apenas letras"),
 
     age: yup.string().required("Campo obrigatório"),
     email: yup
@@ -42,6 +45,7 @@ const Signup = () => {
     password: yup
       .string()
       .min(6, "Mínimo de 6 caracteres")
+      .max(16, "Máximo de 16 caracteres")
       .required("Campo obrigatório"),
 
     confirm_password: yup
@@ -58,8 +62,11 @@ const Signup = () => {
 
   const handleCreateUser = (data) => {
     delete data.confirm_password;
+    handleSignUpAuth(data, history, toast);
+  };
 
-    //  handleRegistration(data, history);
+  const handleNavigation = (path) => {
+    history.push(path);
   };
 
   return (
@@ -252,7 +259,11 @@ const Signup = () => {
           </form>
           <Text>
             Já possui uma?{" "}
-            <Button variant={"link"} color={"#ff9f1a"}>
+            <Button
+              onClick={() => handleNavigation("/login")}
+              variant={"link"}
+              color={"#ff9f1a"}
+            >
               Login
             </Button>
           </Text>
