@@ -7,7 +7,7 @@ import Login from "../pages/Login";
 // import Profile from "../pages/Profile";
 // import Routine from "../pages/Routine";
 // import Team from "../pages/Team";
-// import Exercises from "../pages/Exercises"
+import Exercises from "../pages/Exercises";
 
 const Routes = () => {
   return (
@@ -24,7 +24,9 @@ const Routes = () => {
       <Route path="/dashboard">{/* <Dashboard/> */}</Route>
       <Route path="/profile">{/* <Profile/> */}</Route>
       <Route path="/routine">{/* <Routine/> */}</Route>
-      <Route path="/exercises">{/* <Exercises/> */}</Route>
+      <Route path="/exercises">
+        <Exercises />
+      </Route>
       <Route path="/team">{/* <Team/> */}</Route>
     </Switch>
   );
