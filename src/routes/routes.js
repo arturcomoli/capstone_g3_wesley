@@ -3,7 +3,7 @@ import { Switch } from "react-router-dom";
 import Signup from "../pages/Signup";
 import Login from "../pages/Login";
 // import LandingPage from "../pages/LandingPage";
-// import Dashboard from "../paged/Dashboard";
+import Dashboard from "../pages/Dashboard";
 // import Profile from "../pages/Profile";
 // import Routine from "../pages/Routine";
 // import Team from "../pages/Team";
@@ -13,6 +13,7 @@ const Routes = () => {
   return (
     <Switch>
       <Route exact path="/">
+        <Dashboard />
         {/* <LandingPage/> */}
       </Route>
       <Route path="/login">
