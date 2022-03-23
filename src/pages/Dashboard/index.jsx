@@ -87,55 +87,38 @@ const Dashboard = () => {
           fontFamily={"Montserrat, sans-serif"}
           fontSize={"22px"}
           lineHeight={"27px"}
+          mt={"25px"}
         >
           Alongamentos
         </Text>
         <Flex
-        // overflow={"hidden"} overflowX={"auto"} minWidth={"500px"}
+          maxWidth={{ base: "300px", md: "600px", lg: "100%" }}
+          overflowX={"auto"}
+          css={{
+            "&::-webkit-scrollbar": {
+              display: "none",
+            },
+          }}
         >
           <Box
-            p={"20px"}
             background={"#ff9f1a"}
             bgImage={DorCostas}
-            maxW={"sm"}
+            minWidth={"200px"}
             h={"300px"}
             bgRepeat={"no-repeat"}
             bgSize={"cover"}
             borderRadius={"10px"}
             mx={"25px"}
+            overflow={"hidden"}
+            cursor={"pointer"}
           >
             <VStack
               justifyContent={"flex-end"}
               h={"100%"}
-              bgGradient={"inset 0px -50px 50px 30px #FF9F1A"}
-            >
-              <Text
-                as={"h3"}
-                color={"#FFFFFF"}
-                fontWeight={"800"}
-                fontFamily={"Montserrat, sans-serif"}
-                fontSize={"18px"}
-                lineHeight={"22px"}
-              >
-                Dor nas Costas
-              </Text>
-            </VStack>
-          </Box>
-          {/* <Box
-            p={"20px"}
-            background={"#ff9f1a"}
-            bgImage={DorPescoco}
-            maxW={"sm"}
-            h={"300px"}
-            bgRepeat={"no-repeat"}
-            bgSize={"cover"}
-            borderRadius={"10px"}
-            mx={"25px"}
-          >
-            <VStack
-              justifyContent={"flex-end"}
-              h={"100%"}
-              bgGradient={"inset 0px -50px 50px 30px #FF9F1A"}
+              bgGradient={
+                "linear(0deg, #ff9f1a, transparent, transparent, transparent)"
+              }
+              pb={4}
             >
               <Text
                 as={"h3"}
@@ -150,20 +133,56 @@ const Dashboard = () => {
             </VStack>
           </Box>
           <Box
-            p={"20px"}
             background={"#ff9f1a"}
-            bgImage={DorLombar}
-            maxW={"sm"}
+            bgImage={DorPescoco}
+            minWidth={"200px"}
             h={"300px"}
             bgRepeat={"no-repeat"}
             bgSize={"cover"}
             borderRadius={"10px"}
             mx={"25px"}
+            overflow={"hidden"}
+            cursor={"pointer"}
           >
             <VStack
               justifyContent={"flex-end"}
               h={"100%"}
-              bgGradient={"inset 0px -50px 50px 30px #FF9F1A"}
+              bgGradient={
+                "linear(0deg, #ff9f1a, transparent, transparent, transparent)"
+              }
+              pb={4}
+            >
+              <Text
+                as={"h3"}
+                color={"#FFFFFF"}
+                fontWeight={"800"}
+                fontFamily={"Montserrat, sans-serif"}
+                fontSize={"18px"}
+                lineHeight={"22px"}
+              >
+                Dor nas Costas
+              </Text>
+            </VStack>
+          </Box>
+          <Box
+            background={"#ff9f1a"}
+            bgImage={DorLombar}
+            minWidth={"200px"}
+            h={"300px"}
+            bgRepeat={"no-repeat"}
+            bgSize={"cover"}
+            borderRadius={"10px"}
+            mx={"25px"}
+            overflow={"hidden"}
+            cursor={"pointer"}
+          >
+            <VStack
+              justifyContent={"flex-end"}
+              h={"100%"}
+              bgGradient={
+                "linear(0deg, #ff9f1a, transparent, transparent, transparent)"
+              }
+              pb={4}
             >
               <Text
                 as={"h3"}
@@ -178,20 +197,24 @@ const Dashboard = () => {
             </VStack>
           </Box>
           <Box
-            p={"20px"}
             background={"#ff9f1a"}
             bgImage={DorPunho}
-            maxW={"sm"}
+            minWidth={"200px"}
             h={"300px"}
             bgRepeat={"no-repeat"}
             bgSize={"cover"}
             borderRadius={"10px"}
             mx={"25px"}
+            overflow={"hidden"}
+            cursor={"pointer"}
           >
             <VStack
               justifyContent={"flex-end"}
               h={"100%"}
-              bgGradient={"inset 0px -50px 50px 30px #FF9F1A"}
+              bgGradient={
+                "linear(0deg, #ff9f1a, transparent, transparent, transparent)"
+              }
+              pb={4}
             >
               <Text
                 as={"h3"}
@@ -204,7 +227,7 @@ const Dashboard = () => {
                 Dor nos punhos
               </Text>
             </VStack>
-          </Box> */}
+          </Box>
         </Flex>
 
         <HStack background={"#ff9f1a"} w={"100%"}>
