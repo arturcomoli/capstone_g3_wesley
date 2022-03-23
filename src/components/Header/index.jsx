@@ -23,7 +23,9 @@ const Header = () => {
     <Flex
       justifyContent={"space-around"}
       h={"60px"}
+
       w={"100%"}
+
       py={4}
       mt={2}
       minW={"375px"}
