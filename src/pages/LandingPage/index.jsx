@@ -21,9 +21,19 @@ import RoutineImage from "../../assets/background/image28.png";
 import CatImage from "../../assets/background/image29.jpg";
 import FruitImage from "../../assets/background/image30.png";
 import { AiOutlineMenuUnfold } from "react-icons/ai";
+import { Redirect, useHistory } from "react-router-dom";
+import { useAuthenticationProvider } from "../../providers/Authentication";
+
 const LandingPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const history = useHistory();
+
+  const { token } = useAuthenticationProvider();
+
+  if (token) {
+    return <Redirect to="/dashboard" />;
+  }
   return (
     <VStack bgColor={"#000"} overflowX={"hidden"}>
       <Box
@@ -90,6 +100,7 @@ const LandingPage = () => {
                 bgColor={"#ff9f1a"}
                 color={"#fff"}
                 _hover={{ filter: "brightness(1.1)" }}
+                onClick={() => history.push("/signup")}
               >
                 Cadastro
               </Button>
@@ -97,6 +108,7 @@ const LandingPage = () => {
                 bgColor={"#2b2b2b"}
                 color={"#fff"}
                 _hover={{ filter: "brightness(2)" }}
+                onClick={() => history.push("/login")}
               >
                 Login
               </Button>
@@ -110,10 +122,18 @@ const LandingPage = () => {
             <DrawerCloseButton />
             <DrawerBody my={8}>
               <VStack spacing={4}>
-                <Button bg={"transparent"} color={"#000"}>
+                <Button
+                  bg={"transparent"}
+                  color={"#000"}
+                  onClick={() => history.push("/login")}
+                >
                   Login
                 </Button>
-                <Button bg={"transparent"} color={"#ff9f1a"}>
+                <Button
+                  bg={"transparent"}
+                  color={"#ff9f1a"}
+                  onClick={() => history.push("/signup")}
+                >
                   Cadastro
                 </Button>
               </VStack>
