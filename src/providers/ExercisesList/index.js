@@ -1,5 +1,5 @@
 import api from "../../services/api";
-import { createContext, useContext } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 const ExercisesListContext = createContext();
 
@@ -13,6 +13,22 @@ export const ExercisesListProvider = ({ children }) => {
       Authorization: `Bearer ${token}`,
     },
   };
+
+  const ListLoader = async () => {
+    await api
+      .get("/exercises", options)
+      .then((res) => {
+        setFullList(res.data);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    ListLoader();
+  });
+
+  const [fullList, setFullList] = useState([]);
+  const [filteredList, setFilteredList] = useState(fullList);
 
   const addToUserList = async (data, toast) => {
     const { id } = user;
@@ -58,9 +74,24 @@ export const ExercisesListProvider = ({ children }) => {
     return exercisesList;
   };
 
+  const filterList = (filterWord) => {
+    const newList = fullList.filter((item) => item.category === filterWord);
+    setFilteredList(newList);
+  };
+
   return (
     <ExercisesListContext.Provider
-      value={{ token, user, addToUserList, deleteFromUserList, getUserList }}
+      value={{
+        token,
+        user,
+        addToUserList,
+        deleteFromUserList,
+        getUserList,
+        fullList,
+        filterList,
+        filteredList,
+        setFilteredList,
+      }}
     >
       {children}
     </ExercisesListContext.Provider>
