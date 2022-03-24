@@ -5,11 +5,11 @@ const AuthenticationContext = createContext();
 
 export const AuthenticationProvider = ({ children }) => {
   const [token, setToken] = useState(
-    localStorage.getItem("@token:KenzieWarmup") || ""
+    JSON.parse(localStorage.getItem("@token:KenzieWarmup")) || ""
   );
 
-  const [user, setUser] = useState(
-    localStorage.getItem("@user:KenzieWarmup") || ""
+  const [userInfo, setUserInfo] = useState(
+    JSON.parse(localStorage.getItem("@userInfo:KenzieWarmup")) || ""
   );
 
   const handleSignUpAuth = async (data, history, toast) => {
@@ -31,26 +31,31 @@ export const AuthenticationProvider = ({ children }) => {
   };
 
   const handleLoginAuth = async (data, history, toast) => {
-    const response = await api.post("/login", data).catch((err) =>
-      toast({
-        title: "Algo de errado ocorreu!",
-        status: "error",
+    await api
+      .post("/login", data)
+      .then((res) => {
+        const { accessToken, user } = res.data;        
+        setToken(accessToken);
+        localStorage.setItem(
+          "@token:KenzieWarmup",
+          JSON.stringify(accessToken)
+        );
+        setUserInfo(user);
+        localStorage.setItem("@userInfo:KenzieWarmup", JSON.stringify(user));
+
+        toast({
+          title: "Usuário logado com sucesso!",
+          status: "success",
+        });
+        history.push("/dashboard");
       })
-    );
-
-    const { accessToken, user } = response.data;
-
-    setToken(accessToken);
-    localStorage.setItem("@token:KenzieWarmup", JSON.stringify(accessToken));
-    setUser(user);
-    localStorage.setItem("@user:KenzieWarmup", JSON.stringify(user));
-
-    toast({
-      title: "Usuário logado com sucesso!",
-      status: "success",
-    });
-    history.push("/dashboard");
-  };
+      .catch((err) =>
+        toast({
+          title: "Algo de errado ocorreu!",
+          status: "error",
+        })
+      );
+  }; 
 
   const handleLogout = (history) => {
     localStorage.clear();
@@ -59,7 +64,13 @@ export const AuthenticationProvider = ({ children }) => {
 
   return (
     <AuthenticationContext.Provider
-      value={{ token, user, handleLoginAuth, handleLogout, handleSignUpAuth }}
+      value={{        
+        token,
+        userInfo,
+        handleLoginAuth,
+        handleLogout,
+        handleSignUpAuth,
+      }}
     >
       {children}
     </AuthenticationContext.Provider>

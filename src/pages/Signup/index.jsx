@@ -365,7 +365,7 @@ const Signup = () => {
             <Text>
               Já possui uma?{" "}
               <Button
-                onClick={() => handleNavigation("/")}
+                onClick={() => handleNavigation("/login")}
                 variant={"link"}
                 color={"#ff9f1a"}
               >

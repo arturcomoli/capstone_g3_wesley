@@ -12,10 +12,12 @@ import {
   Button,
   useToast,
 } from "@chakra-ui/react";
+import { useAuthenticationProvider } from "../../providers/Authentication";
 import { useExercisesListProvider } from "../../providers/ExercisesList";
 
 const Exercise = ({ img, name, instructions, id }) => {
   const { fullList, addToUserList } = useExercisesListProvider();
+  const { token, userInfo } = useAuthenticationProvider();
 
   const toast = useToast();
 
@@ -24,7 +26,7 @@ const Exercise = ({ img, name, instructions, id }) => {
     const numExId = Number(exId);
     const item = fullList.filter((element) => element.id === numExId);
     const newItem = { ...item[0] };
-    addToUserList(newItem, toast);    
+    addToUserList(newItem, toast, userInfo, token);
   };
 
   return (
