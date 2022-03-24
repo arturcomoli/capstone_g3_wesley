@@ -23,16 +23,21 @@ export const ExercisesListProvider = ({ children }) => {
       .catch((err) => console.log(err));
   };
 
-  useEffect(() => {
-    ListLoader();
-  });
-
   const [fullList, setFullList] = useState([]);
   const [filteredList, setFilteredList] = useState(fullList);
 
+  useEffect(() => {
+    ListLoader();
+  }, []);
+
   const addToUserList = async (data, toast) => {
+    console.log(data);
     const { id } = user;
-    const newData = { ...data, userId: id };
+    delete data.img;
+    delete data.id;
+    delete data.instructions;
+    const newData = { ...data, userId: id, counter: 0, freq: 5 };
+    console.log(newData);
     await api
       .post("/userlists", newData, options)
       .then((res) => {
@@ -91,6 +96,7 @@ export const ExercisesListProvider = ({ children }) => {
         filterList,
         filteredList,
         setFilteredList,
+        ListLoader,
       }}
     >
       {children}
