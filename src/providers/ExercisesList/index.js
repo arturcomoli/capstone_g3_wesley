@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import api from "../../services/api";
 import { createContext, useContext, useEffect, useState } from "react";
 
@@ -10,7 +11,7 @@ export const ExercisesListProvider = ({ children }) => {
 
   useEffect(() => {
     ListLoader();
-  }, []);  
+  }, []);
 
   const ListLoader = async (token) => {
     const options = {
@@ -42,7 +43,6 @@ export const ExercisesListProvider = ({ children }) => {
     delete data.id;
     delete data.instructions;
     const newData = { ...data, userId: id, counter: 0, freq: 5 };
-    console.log(newData);
     await api
       .post("/userlists", newData, options)
       .then((res) => {
@@ -145,8 +145,6 @@ export const ExercisesListProvider = ({ children }) => {
       );
   };
 
-
-
   const filterList = (filterWord) => {
     const newList = fullList.filter((item) => item.category === filterWord);
     setFilteredList(newList);
@@ -154,10 +152,7 @@ export const ExercisesListProvider = ({ children }) => {
   return (
     <ExercisesListContext.Provider
       value={{
-        // token,
-        // user,
         addToUserList,
-        // deleteFromUserList,
         getUserList,
         updateExercise,
         fullList,

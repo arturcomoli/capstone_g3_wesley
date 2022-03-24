@@ -31,7 +31,6 @@ const Routes = () => {
       <Route path="/routine">
         <Routine />
       </Route>
-      </Route>
       <Route path="/profile">
         <Profile />
       </Route>

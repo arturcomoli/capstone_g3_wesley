@@ -34,7 +34,7 @@ export const AuthenticationProvider = ({ children }) => {
     await api
       .post("/login", data)
       .then((res) => {
-        const { accessToken, user } = res.data;        
+        const { accessToken, user } = res.data;
         setToken(accessToken);
         localStorage.setItem(
           "@token:KenzieWarmup",
@@ -55,16 +55,18 @@ export const AuthenticationProvider = ({ children }) => {
           status: "error",
         })
       );
-  }; 
+  };
 
   const handleLogout = (history) => {
+    setToken("");
+    setUserInfo("");
     localStorage.clear();
     history.push("/");
   };
 
   return (
     <AuthenticationContext.Provider
-      value={{        
+      value={{
         token,
         userInfo,
         handleLoginAuth,

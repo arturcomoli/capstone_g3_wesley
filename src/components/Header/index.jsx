@@ -4,13 +4,10 @@ import {
   DrawerBody,
   DrawerCloseButton,
   DrawerContent,
-  DrawerFooter,
-  DrawerHeader,
   DrawerOverlay,
   Flex,
   HStack,
   Image,
-  Input,
   useDisclosure,
   VStack,
 } from "@chakra-ui/react";
@@ -18,8 +15,10 @@ import { useHistory } from "react-router-dom";
 import { AiOutlineMenuUnfold } from "react-icons/ai";
 import logo from "../../assets/logo/Kenzie.WarmUpDark.svg";
 import logoWhite from "../../assets/logo/Kenzie.WarmUp.svg";
+import { useAuthenticationProvider } from "../../providers/Authentication";
 const Header = ({ logotype, bgWhite }) => {
   const history = useHistory();
+  const { handleLogout } = useAuthenticationProvider();
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Flex
@@ -100,6 +99,15 @@ const Header = ({ logotype, bgWhite }) => {
         >
           Exercícios
         </Button>
+        <Button
+          borderRadius={"0"}
+          bg={"#000000"}
+          color={"#ffffff"}
+          _hover={{ bgColor: "#ff9f1a" }}
+          onClick={() => handleLogout(history)}
+        >
+          Logout
+        </Button>
       </HStack>
       {/* Hidden Menu */}
       <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
@@ -132,6 +140,14 @@ const Header = ({ logotype, bgWhite }) => {
                 onClick={() => history.push("/exercises")}
               >
                 Exercícios
+              </Button>
+              <Button
+                bg={"#2b2b3c"}
+                color={"#ffffff"}
+                _hover={{ filter: "brightness(1.4)" }}
+                onClick={() => handleLogout(history)}
+              >
+                Logout
               </Button>
             </VStack>
           </DrawerBody>

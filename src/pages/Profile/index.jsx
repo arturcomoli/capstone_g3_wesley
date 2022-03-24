@@ -60,10 +60,7 @@ const Profile = () => {
             name={user.name}
             src=""
             bg="orange.500"
-            color="white"
-            // fontSize={"25px"}
-            // size={{ base: "xl", md: "2xl" }}
-            // size={"30px"}
+            color="white"            
             size={"xl"}
           />
           <VStack

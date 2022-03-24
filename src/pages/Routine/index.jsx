@@ -12,13 +12,15 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { useExercisesListProvider } from "../../providers/ExercisesList";
+import { useAuthenticationProvider } from "../../providers/Authentication";
 import Background from "../../assets/background/image35.svg";
-import { useEffect, useState } from "react";
+import { MotionDiv } from "./motion";
 
 const Routine = () => {
   const toast = useToast();
 
   const { userList, updateExercise } = useExercisesListProvider();
+  const { token } = useAuthenticationProvider();
   const toDo = userList.filter((item) => !item.status);
   const allToDo = toDo.reduce((acc, cur) => acc + cur.counter, 0);
   const maxToDo = toDo.length * 5;
@@ -41,35 +43,47 @@ const Routine = () => {
           h={"100%"}
           w={"100%"}
         >
-          <Header />
+          <MotionDiv
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+          >
+            <Header />
+          </MotionDiv>
           <HStack justifyContent={"flex-end"} w={"90vw"}>
             <VStack mt={{ base: "2.5rem", md: "4rem", lg: "6rem" }}>
-              <Text
-                as={"h2"}
-                fontWeight={"700"}
-                fontFamily={"Karantina, cursive"}
-                textAlign={"right"}
-                w={{ base: "150px", md: "400px", lg: "600px" }}
-                alignSelf={"self-end"}
-                fontSize={{ base: "30px", md: "60px", lg: "100px" }}
-                lineHeight={{ base: "30px", md: "60px", lg: "100px" }}
+              <MotionDiv
+                initial={{ x: 200, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ duration: 0.75 }}
               >
-                DEFINA SEUS HORÁRIOS
-              </Text>
-              <Text
-                as={"h3"}
-                color={"#ff9f1a"}
-                fontWeight={"600"}
-                fontFamily={"Montserrat, sans-serif"}
-                fontStyle={"italic"}
-                textAlign={"right"}
-                w={{ base: "150px", md: "400px", lg: "600px" }}
-                alignSelf={"self-end"}
-                fontSize={{ base: "14px", md: "25px", lg: "40px" }}
-                lineHeight={{ base: "14px", md: "25px", lg: "40px" }}
-              >
-                organize-se
-              </Text>
+                <Text
+                  as={"h2"}
+                  fontWeight={"700"}
+                  fontFamily={"Karantina, cursive"}
+                  textAlign={"right"}
+                  w={{ base: "150px", md: "400px", lg: "600px" }}
+                  alignSelf={"self-end"}
+                  fontSize={{ base: "30px", md: "60px", lg: "100px" }}
+                  lineHeight={{ base: "30px", md: "60px", lg: "100px" }}
+                >
+                  DEFINA SEUS HORÁRIOS
+                </Text>
+                <Text
+                  as={"h3"}
+                  color={"#ff9f1a"}
+                  fontWeight={"600"}
+                  fontFamily={"Montserrat, sans-serif"}
+                  fontStyle={"italic"}
+                  textAlign={"right"}
+                  w={{ base: "150px", md: "400px", lg: "600px" }}
+                  alignSelf={"self-end"}
+                  fontSize={{ base: "14px", md: "25px", lg: "40px" }}
+                  lineHeight={{ base: "14px", md: "25px", lg: "40px" }}
+                >
+                  organize-se
+                </Text>
+              </MotionDiv>
             </VStack>
           </HStack>
         </VStack>
@@ -153,7 +167,7 @@ const Routine = () => {
                   _hover={{ filter: "brightness(1.1)" }}
                   size={"sm"}
                   onClick={() => {
-                    updateExercise(item, toast);
+                    updateExercise(item, toast, token);
                   }}
                 >
                   Feito

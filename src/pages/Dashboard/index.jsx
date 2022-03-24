@@ -27,14 +27,12 @@ import { Redirect } from "react-router-dom";
 
 const Dashboard = () => {
   const { token } = useAuthenticationProvider();
-  
+
   const history = useHistory();
-  
+
   const pushHistory = (path) => {
     history.push(path);
   };
-  
-  
   if (!token) {
     return <Redirect to={"/login"} />;
   }

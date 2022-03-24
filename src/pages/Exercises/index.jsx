@@ -16,13 +16,13 @@ import { useAuthenticationProvider } from "../../providers/Authentication";
 import Exercise from "../../components/Exercise";
 import { useState } from "react";
 import { Redirect } from "react-router-dom";
+import { MotionDiv } from "./motion";
 
 const Exercises = () => {
-  const { fullList, filterList, filteredList, setFilteredList, ListLoader } =
+  const { fullList, filterList, filteredList, setFilteredList } =
     useExercisesListProvider();
 
   const { token } = useAuthenticationProvider();
-  
 
   const [isRender, setRender] = useState(true);
 
@@ -52,35 +52,47 @@ const Exercises = () => {
           h={"100%"}
           w={"100%"}
         >
-          <Header />
+          <MotionDiv
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+          >
+            <Header />
+          </MotionDiv>
           <HStack justifyContent={"flex-end"} w={"90vw"}>
             <VStack mt={{ base: "2.5rem", md: "4rem", lg: "6rem" }}>
-              <Text
-                as={"h2"}
-                fontWeight={"700"}
-                fontFamily={"Karantina, cursive"}
-                textAlign={"right"}
-                w={{ base: "150px", md: "400px", lg: "600px" }}
-                alignSelf={"self-end"}
-                fontSize={{ base: "30px", md: "60px", lg: "100px" }}
-                lineHeight={{ base: "30px", md: "60px", lg: "100px" }}
+              <MotionDiv
+                initial={{ x: 200, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ duration: 0.75 }}
               >
-                CORPO SAUDÁVEL MENTE SAUDÁVEL
-              </Text>
-              <Text
-                as={"h3"}
-                color={"#ff9f1a"}
-                fontWeight={"600"}
-                fontFamily={"Montserrat, sans-serif"}
-                fontStyle={"italic"}
-                textAlign={"right"}
-                w={{ base: "150px", md: "400px", lg: "600px" }}
-                alignSelf={"self-end"}
-                fontSize={{ base: "14px", md: "25px", lg: "40px" }}
-                lineHeight={{ base: "14px", md: "25px", lg: "40px" }}
-              >
-                exercite-se
-              </Text>
+                <Text
+                  as={"h2"}
+                  fontWeight={"700"}
+                  fontFamily={"Karantina, cursive"}
+                  textAlign={"right"}
+                  w={{ base: "150px", md: "400px", lg: "600px" }}
+                  alignSelf={"self-end"}
+                  fontSize={{ base: "30px", md: "60px", lg: "100px" }}
+                  lineHeight={{ base: "30px", md: "60px", lg: "100px" }}
+                >
+                  CORPO SAUDÁVEL MENTE SAUDÁVEL
+                </Text>
+                <Text
+                  as={"h3"}
+                  color={"#ff9f1a"}
+                  fontWeight={"600"}
+                  fontFamily={"Montserrat, sans-serif"}
+                  fontStyle={"italic"}
+                  textAlign={"right"}
+                  w={{ base: "150px", md: "400px", lg: "600px" }}
+                  alignSelf={"self-end"}
+                  fontSize={{ base: "14px", md: "25px", lg: "40px" }}
+                  lineHeight={{ base: "14px", md: "25px", lg: "40px" }}
+                >
+                  exercite-se
+                </Text>
+              </MotionDiv>
             </VStack>
           </HStack>
         </VStack>
@@ -141,13 +153,12 @@ const Exercises = () => {
             </Tab>
           </TabList>
         </Tabs>
-
         <Accordion allowToggle w={"80%"}>
           {isRender
             ? fullList.map((item, index) => (
                 <Exercise
                   key={index}
-                  id={index}
+                  id={item.id}
                   name={item.name}
                   img={item.img}
                   instructions={item.instructions}
@@ -156,7 +167,7 @@ const Exercises = () => {
             : filteredList.map((item, index) => (
                 <Exercise
                   key={index}
-                  id={index}
+                  id={item.id}
                   name={item.name}
                   img={item.img}
                   instructions={item.instructions}
