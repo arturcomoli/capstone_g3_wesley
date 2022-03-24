@@ -12,19 +12,27 @@ import {
 } from "@chakra-ui/react";
 import Background from "../../assets/exercises/image25.svg";
 import { useExercisesListProvider } from "../../providers/ExercisesList";
+import { useAuthenticationProvider } from "../../providers/Authentication";
 import Exercise from "../../components/Exercise";
 import { useState } from "react";
+import { Redirect } from "react-router-dom";
 
 const Exercises = () => {
   const { fullList, filterList, filteredList, setFilteredList } =
     useExercisesListProvider();
+
+  const { token } = useAuthenticationProvider();
 
   const [isRender, setRender] = useState(true);
 
   const handleRender = (filter) => {
     filterList(filter);
     setRender(false);
-  };  
+  };
+
+  if (!token) {
+    return <Redirect to="/login" />;
+  }
 
   return (
     <VStack bgColor={"#000"} overflowX={"hidden"}>

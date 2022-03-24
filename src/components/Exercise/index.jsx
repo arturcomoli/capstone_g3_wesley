@@ -10,9 +10,23 @@ import {
   Flex,
   VStack,
   Button,
+  useToast,
 } from "@chakra-ui/react";
+import { useExercisesListProvider } from "../../providers/ExercisesList";
 
 const Exercise = ({ img, name, instructions, id }) => {
+  const { fullList, addToUserList } = useExercisesListProvider();
+
+  const toast = useToast();
+
+  const handleSelect = (e) => {
+    const exId = e.target.id;
+    const numExId = Number(exId);
+    const item = fullList.filter((element) => element.id === numExId);
+    const newItem = { ...item[0] };
+    addToUserList(newItem, toast);    
+  };
+
   return (
     <AccordionItem my={2} key={id}>
       <h2>
@@ -69,6 +83,7 @@ const Exercise = ({ img, name, instructions, id }) => {
             h={"25px"}
             colorScheme={"orange"}
             id={id}
+            onClick={handleSelect}
           >
             Adicionar Exercício à minha lista
           </Button>

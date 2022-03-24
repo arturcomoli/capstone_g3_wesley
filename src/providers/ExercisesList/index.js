@@ -31,8 +31,13 @@ export const ExercisesListProvider = ({ children }) => {
   }, []);
 
   const addToUserList = async (data, toast) => {
+    console.log(data);
     const { id } = user;
-    const newData = { ...data, userId: id };
+    delete data.img;
+    delete data.id;
+    delete data.instructions;
+    const newData = { ...data, userId: id, counter: 0, freq: 5 };
+    console.log(newData);
     await api
       .post("/userlists", newData, options)
       .then((res) => {
