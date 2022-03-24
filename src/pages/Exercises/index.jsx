@@ -18,10 +18,11 @@ import { useState } from "react";
 import { Redirect } from "react-router-dom";
 
 const Exercises = () => {
-  const { fullList, filterList, filteredList, setFilteredList } =
+  const { fullList, filterList, filteredList, setFilteredList, ListLoader } =
     useExercisesListProvider();
 
   const { token } = useAuthenticationProvider();
+  
 
   const [isRender, setRender] = useState(true);
 

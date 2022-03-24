@@ -4,17 +4,20 @@ import { createContext, useContext, useEffect, useState } from "react";
 const ExercisesListContext = createContext();
 
 export const ExercisesListProvider = ({ children }) => {
-  const token = JSON.parse(localStorage.getItem("@token:KenzieWarmup"));
+  const token = JSON.parse(localStorage.getItem("@token:KenzieWarmup")) || "";
 
-  const user = JSON.parse(localStorage.getItem("@user:KenzieWarmup"));
+  const user = JSON.parse(localStorage.getItem("@userInfo:KenzieWarmup")) || "";
 
-  const options = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
+  useEffect(() => {
+    ListLoader();
+  }, []);  
 
-  const ListLoader = async () => {
+  const ListLoader = async (token) => {
+    const options = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
     await api
       .get("/exercises", options)
       .then((res) => {
@@ -28,17 +31,13 @@ export const ExercisesListProvider = ({ children }) => {
   const [userList, setUserList] = useState([]);
   const [update, setUpdate] = useState(true);
 
-  useEffect(() => {
-    ListLoader();
-  }, []);
-
-  useEffect(() => {
-    ListLoader();
-  }, []);
-
-  const addToUserList = async (data, toast) => {
-    console.log(data);
+  const addToUserList = async (data, toast, user, token) => {
     const { id } = user;
+    const options = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
     delete data.img;
     delete data.id;
     delete data.instructions;
@@ -61,25 +60,30 @@ export const ExercisesListProvider = ({ children }) => {
       );
   };
 
-  const deleteFromUserList = async (data, toast) => {
-    const { id } = data;
-    await api
-      .delete(`/userlists/${id}`, options)
-      .then((res) => {
-        toast({
-          title: "Exercício deletado com sucesso!",
-          status: "success",
-        });
-      })
-      .catch((err) =>
-        toast({
-          title: "Algo de errado ocorreu!",
-          status: "error",
-        })
-      );
-  };
+  // const deleteFromUserList = async (data, toast) => {
+  //   const { id } = data;
+  //   await api
+  //     .delete(`/userlists/${id}`, options)
+  //     .then((res) => {
+  //       toast({
+  //         title: "Exercício deletado com sucesso!",
+  //         status: "success",
+  //       });
+  //     })
+  //     .catch((err) =>
+  //       toast({
+  //         title: "Algo de errado ocorreu!",
+  //         status: "error",
+  //       })
+  //     );
+  // };
 
   const getUserList = async () => {
+    const options = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
     const { id } = user;
     await api
       .get(`/users/${id}?_embed=userlists`, options)
@@ -90,10 +94,12 @@ export const ExercisesListProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    getUserList();
+    if (user) {
+      getUserList();
+    }
   }, [update]);
 
-  const updateExercise = async (exercise, toast) => {
+  const updateExercise = async (exercise, toast, token) => {
     const { id, freq } = exercise;
     let newCounter = exercise.counter;
     let newExercise = {};
@@ -114,6 +120,13 @@ export const ExercisesListProvider = ({ children }) => {
         last: `${formattedDate}`,
       };
     }
+
+    const options = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
     await api
       .put(`/userlists/${id}`, newExercise, options)
       .then((res) => {
@@ -133,10 +146,10 @@ export const ExercisesListProvider = ({ children }) => {
   return (
     <ExercisesListContext.Provider
       value={{
-        token,
-        user,
+        // token,
+        // user,
         addToUserList,
-        deleteFromUserList,
+        // deleteFromUserList,
         getUserList,
         updateExercise,
         fullList,

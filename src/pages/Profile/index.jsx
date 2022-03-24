@@ -18,14 +18,18 @@ import ProfileBackground from "../../assets/background/image31.jpg";
 import Header from "../../components/Header";
 
 import { useExercisesListProvider } from "../../providers/ExercisesList";
+import { useAuthenticationProvider } from "../../providers/Authentication";
 import CompletedExercise from "../../components/CompletedExercise";
-import { AnimationOnScroll } from "react-animation-on-scroll";
+import { MotionDiv } from "./motion";
+import { Redirect } from "react-router-dom";
 
 const Profile = () => {
   const { userList } = useExercisesListProvider();
-  const user = JSON.parse(localStorage.getItem("@user:KenzieWarmup"));
-  // const { user } = useAuthenticationProvider();
-
+  const user = JSON.parse(localStorage.getItem("@userInfo:KenzieWarmup"));
+  const { token } = useAuthenticationProvider();
+  if (!token) {
+    return <Redirect to={"/login"} />;
+  }
   const done = userList.filter((item) => item.status);
 
   const total = userList.length * 5;
@@ -72,7 +76,10 @@ const Profile = () => {
             <Text fontSize={"1.3em"}>Vem M4!</Text>
           </VStack>
         </Flex>
-        <VStack h={"500px"} my={{ base: "15px", md: "-60px" }}>
+        <VStack
+          h={{ base: "550px", md: "700px", lg: "750px" }}
+          my={{ base: "15px", md: "-60px" }}
+        >
           <Center
             mt={4}
             w={{ base: "100vw", lg: "80vw" }}
@@ -83,7 +90,12 @@ const Profile = () => {
             justifyContent={"space-between"}
             spacing={2}
           >
-            <AnimationOnScroll animateIn={"animate__fadeInLeftBig"}>
+            <MotionDiv
+              initial={{ opacity: 0, x: "-100px" }}
+              animate={{ opacity: 1, x: "0px" }}
+              transition={{ duration: 0.75 }}
+              overflow={"hidden"}
+            >
               <Box
                 w={{ base: "100vw", md: "80vw" }}
                 bgColor={"#fff"}
@@ -91,6 +103,20 @@ const Profile = () => {
                 borderRadius={10}
                 minH={"150px"}
                 mb={8}
+                overflowY="auto"
+                maxH={"350px"}
+                css={{
+                  "&::-webkit-scrollbar-track": {
+                    bgColor: "#F4F4F4",
+                  },
+                  "&::-webkit-scrollbar": {
+                    width: "6px",
+                    background: "#F4F4F4",
+                  },
+                  "&::-webkit-scrollbar-thumb": {
+                    background: "#dad7d7",
+                  },
+                }}
               >
                 <Heading fontSize={{ base: "22px", lg: "32px" }}>
                   Exercícios Concluídos
@@ -110,8 +136,12 @@ const Profile = () => {
                   <CompletedExercise item={item} key={index} />
                 ))}
               </Box>
-            </AnimationOnScroll>
-            <AnimationOnScroll animateIn={"animate__fadeInRightBig"}>
+            </MotionDiv>
+            <MotionDiv
+              initial={{ opacity: 0, x: "-100px" }}
+              animate={{ opacity: 1, x: "0px" }}
+              transition={{ duration: 0.75 }}
+            >
               <Box
                 minH={"150px"}
                 w={{ base: "100vw", md: "80vw" }}
@@ -133,7 +163,7 @@ const Profile = () => {
                   </CircularProgressLabel>
                 </CircularProgress>
               </Box>
-            </AnimationOnScroll>
+            </MotionDiv>
           </Center>
         </VStack>
         <Footer />

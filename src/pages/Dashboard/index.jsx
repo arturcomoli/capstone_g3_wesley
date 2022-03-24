@@ -21,8 +21,23 @@ import Direita from "../../assets/dashboard/image23.svg";
 import Dicas from "../../assets/dashboard/image24.svg";
 import { MotionDiv } from "./motion";
 import { AnimationOnScroll } from "react-animation-on-scroll";
+import { useHistory } from "react-router-dom";
+import { useAuthenticationProvider } from "../../providers/Authentication";
+import { Redirect } from "react-router-dom";
 
 const Dashboard = () => {
+  const { token } = useAuthenticationProvider();
+  
+  const history = useHistory();
+  
+  const pushHistory = (path) => {
+    history.push(path);
+  };
+  
+  
+  if (!token) {
+    return <Redirect to={"/login"} />;
+  }
   return (
     <VStack bgColor={"#000"} overflowX={"hidden"}>
       <VStack
@@ -271,7 +286,9 @@ const Dashboard = () => {
               </Container>
             </AnimationOnScroll>
             <AnimationOnScroll animateIn="animate__fadeInRightBig">
-              <Button color={"#000000"}>DEFINIR</Button>
+              <Button color={"#000000"} onClick={() => pushHistory("/routine")}>
+                DEFINIR
+              </Button>
             </AnimationOnScroll>
           </VStack>
         </HStack>

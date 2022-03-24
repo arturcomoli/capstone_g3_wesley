@@ -7,7 +7,7 @@ import Footer from "../../components/Footer";
 
 const Team = () => {
   return (
-    <VStack>
+    <VStack minH={"100vh"} minW={"100vw"}>
       <Header />
       <Center w={"100%"}>
         <SimpleGrid

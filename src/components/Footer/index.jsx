@@ -6,6 +6,7 @@ const Footer = () => {
   const history = useHistory();
   return (
     <Center
+      w={"100%"}
       mt={8}
       minH={"300px"}
       h={"10rem"}
