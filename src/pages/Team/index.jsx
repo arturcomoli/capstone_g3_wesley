@@ -3,7 +3,12 @@ import DevCard from "../../components/DevCard";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 
-// import {nome} from "../../assets/team/{nome}.jpeg"
+import andre from "../../assets/team/andre.jpeg";
+import artur from "../../assets/team/artur.jpeg";
+import dylan from "../../assets/team/dylan.jpeg";
+import felipy from "../../assets/team/felipy.jpeg";
+import ismael from "../../assets/team/ismael.jpeg";
+import ravi from "../../assets/team/ravi.jpeg";
 
 const Team = () => {
   return (
@@ -20,42 +25,42 @@ const Team = () => {
           <DevCard
             name={"Artur Comoli"}
             status={"Tech Leader"}
-            img={"gato"}
+            img={artur}
             linkedin={"https://www.linkedin.com/in/artur-comoli/"}
             github={"https://github.com/arturcomoli"}
           />
           <DevCard
             name={"André Junqueira"}
             status={"Scrum Master"}
-            img={"gato"}
+            img={andre}
             linkedin={"https://www.linkedin.com/in/andrejunqueiramo/"}
             github={"https://github.com/andrejunqueiram"}
           />
           <DevCard
             name={"Dylan Almeida"}
-            status={"QA"}
-            img={"gato"}
+            status={"Quality Assurance"}
+            img={dylan}
             linkedin={"https://www.linkedin.com/in/dylan-almeida-4646ab226/"}
             github={"https://github.com/almeidadylan"}
           />
           <DevCard
             name={"Felipy Santos"}
-            status={"PO"}
-            img={"gato"}
+            status={"Product Owner"}
+            img={felipy}
             linkedin={"https://www.linkedin.com/in/felipy-santos-b1358121a/"}
             github={"https://github.com/felipysantos"}
           />
           <DevCard
             name={"Ismael Correia"}
-            status={"QA"}
-            img={"gato"}
+            status={"Quality Assurance"}
+            img={ismael}
             linkedin={"https://www.linkedin.com/in/devismaelcorreia/"}
             github={"https://github.com/yerrash"}
           />
           <DevCard
             name={"Ravi Antunes"}
-            status={"QA"}
-            img={"gato"}
+            status={"Quality Assurance"}
+            img={ravi}
             linkedin={"https://www.linkedin.com/in/ravi-antunes-636950b7/"}
             github={"https://github.com/raviantunes"}
           />
