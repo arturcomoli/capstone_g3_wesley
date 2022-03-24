@@ -15,22 +15,36 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { useHistory } from "react-router-dom";
+import { AiOutlineMenuUnfold } from "react-icons/ai";
 import logo from "../../assets/logo/Kenzie.WarmUpDark.svg";
-const Header = () => {
+import logoWhite from "../../assets/logo/Kenzie.WarmUp.svg";
+const Header = ({logotype}) => {
   const history = useHistory();
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Flex
-      justifyContent={"space-around"}
-      h={"60px"}
-
-      w={"100%"}
-
-      py={4}
       mt={2}
       minW={"375px"}
+      h={{ base: "60px", md: "90px" }}
+      w={"100vw"}
+      justifyContent={{
+        base: "space-between",
+        md: "space-around",
+      }}
+      alignItems={"center"}
+      px={4}
     >
-      <Image alt="logo" src={logo} maxW={"280px"} />
+      <Image
+        src={logotype === "white" ? logoWhite : logo}
+        alt={"logo"}
+        maxW={"280px"}
+        sx={{
+          "@media (max-width:768px)": {
+            width: "240px",
+          },
+          "@media (max-width:425px)": { width: "150px" },
+        }}
+      />
       {/* Hamburger Menu */}
       <Button
         sx={{
@@ -41,8 +55,11 @@ const Header = () => {
           "@media (max-width:425px)": {},
         }}
         onClick={onOpen}
+        fontSize={"1.6rem"}
+        bg={"transparent"}
+        color={"#fff"}
       >
-        dale
+        <AiOutlineMenuUnfold />
       </Button>
       <HStack
         sx={{
