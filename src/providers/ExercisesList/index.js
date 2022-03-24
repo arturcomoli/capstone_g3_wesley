@@ -43,6 +43,7 @@ export const ExercisesListProvider = ({ children }) => {
     await api
       .post("/userlists", newData, options)
       .then((res) => {
+        setUpdate(!update);
         toast({
           title: "Exercício cadastrado com sucesso!",
           status: "success",
@@ -91,27 +92,30 @@ export const ExercisesListProvider = ({ children }) => {
   const updateExercise = async (exercise, toast) => {
     const { id, counter, freq } = exercise;
     let newCounter = exercise.counter;
-    newCounter++;
-    const newExercise = { ...exercise, counter: newCounter };
-    if (counter < freq) {
-      await api
-        .put(`/userlists/${id}`, newExercise, options)
-        .then((res) => {
-          toast({
-            title: "Exercício atualizado!",
-            status: "success",
-          });
-          setUpdate(!update);
-        })
-        .catch((err) => console.log(err));
+    let newExercise = {};
+    if (newCounter < freq) {
+      newCounter++;
+      newExercise = { ...exercise, counter: newCounter };
     }
+    if (newCounter === freq) {
+      newExercise = { ...exercise, status: true, counter: newCounter };
+    }
+    await api
+      .put(`/userlists/${id}`, newExercise, options)
+      .then((res) => {
+        toast({
+          title: "Exercício atualizado!",
+          status: "success",
+        });
+        setUpdate(!update);
+      })
+      .catch((err) => console.log(err));
   };
 
   const filterList = (filterWord) => {
     const newList = fullList.filter((item) => item.category === filterWord);
     setFilteredList(newList);
   };
-
   return (
     <ExercisesListContext.Provider
       value={{

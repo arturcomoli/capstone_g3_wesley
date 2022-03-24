@@ -18,7 +18,8 @@ const Routine = () => {
 
   const { userList, updateExercise, addToUserList, deleteFromUserList } =
     useExercisesListProvider();
-
+  const done = userList.filter((item) => !item.status);
+  console.log(done);
   return (
     <VStack bgColor={"#000"} overflowX={"hidden"}>
       <VStack
@@ -98,8 +99,8 @@ const Routine = () => {
           <span>Progresso</span>
           <span>Exercício</span>
         </Flex>
-        {userList &&
-          userList.map((item, index) => {
+        {done &&
+          done.map((item, index) => {
             let ratio = (item.counter / item.freq) * 100;
             return (
               <Flex key={index} w={"80%"}>
