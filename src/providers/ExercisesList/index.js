@@ -25,6 +25,8 @@ export const ExercisesListProvider = ({ children }) => {
 
   const [fullList, setFullList] = useState([]);
   const [filteredList, setFilteredList] = useState(fullList);
+  const [userList, setUserList] = useState([]);
+  const [update, setUpdate] = useState(true);
 
   useEffect(() => {
     ListLoader();
@@ -74,9 +76,35 @@ export const ExercisesListProvider = ({ children }) => {
 
   const getUserList = async () => {
     const { id } = user;
-    const response = await api.get(`/users/${id}?_embed=userlists`, options);
-    const exercisesList = response.userlists;
-    return exercisesList;
+    await api
+      .get(`/users/${id}?_embed=userlists`, options)
+      .then((res) => {
+        setUserList(res.data.userlists);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    getUserList();
+  }, [update]);
+
+  const updateExercise = async (exercise, toast) => {
+    const { id, counter, freq } = exercise;
+    let newCounter = exercise.counter;
+    newCounter++;
+    const newExercise = { ...exercise, counter: newCounter };
+    if (counter < freq) {
+      await api
+        .put(`/userlists/${id}`, newExercise, options)
+        .then((res) => {
+          toast({
+            title: "Exercício atualizado!",
+            status: "success",
+          });
+          setUpdate(!update);
+        })
+        .catch((err) => console.log(err));
+    }
   };
 
   const filterList = (filterWord) => {
@@ -92,10 +120,13 @@ export const ExercisesListProvider = ({ children }) => {
         addToUserList,
         deleteFromUserList,
         getUserList,
+        updateExercise,
         fullList,
         filterList,
         filteredList,
         setFilteredList,
+        userList,
+        setUserList,
         ListLoader,
       }}
     >
