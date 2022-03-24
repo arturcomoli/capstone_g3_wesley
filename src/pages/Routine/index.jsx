@@ -1,6 +1,7 @@
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import {
+  Button,
   Flex,
   FormControl,
   Heading,
@@ -12,14 +13,17 @@ import {
 } from "@chakra-ui/react";
 import { useExercisesListProvider } from "../../providers/ExercisesList";
 import Background from "../../assets/background/image35.svg";
+import { useEffect, useState } from "react";
 
 const Routine = () => {
   const toast = useToast();
 
-  const { userList, updateExercise, addToUserList, deleteFromUserList } =
-    useExercisesListProvider();
-  const done = userList.filter((item) => !item.status);
-  console.log(done);
+  const { userList, updateExercise } = useExercisesListProvider();
+  const toDo = userList.filter((item) => !item.status);
+  const allToDo = toDo.reduce((acc, cur) => acc + cur.counter, 0);
+  const maxToDo = toDo.length * 5;
+  const currentProg = (allToDo / maxToDo) * 100;
+
   return (
     <VStack bgColor={"#000"} overflowX={"hidden"}>
       <VStack
@@ -72,7 +76,7 @@ const Routine = () => {
       </VStack>
       <VStack
         minHeight={"600px"}
-        spacing={{ base: "25px", md: "35px" }}
+        spacing={{ base: "15px", md: "25px" }}
         borderRadius={"20px"}
         w={"100vw"}
         maxWidth={{ base: " 400px", md: "600px", lg: "900px" }}
@@ -88,33 +92,72 @@ const Routine = () => {
         >
           Sua lista de Exercícios
         </Heading>
-        <Flex>
-          <span>Progresso total</span>
-          <span>Dias</span>
+        <VStack w={"100%"}>
+          <Flex m={"0"}>
+            <Heading fontSize={{ base: "18px", md: "22px" }}>
+              Progresso total
+            </Heading>
+          </Flex>
+          <FormControl w={"80%"} m={"0"}>
+            <Progress
+              m={"0"}
+              colorScheme={"orange"}
+              size={"lg"}
+              hasStripe
+              value={currentProg}
+            />
+          </FormControl>
+        </VStack>
+        <Flex w={"80%"} justifyContent={"space-between"}>
+          <Flex w={"75%"}>
+            <Heading
+              w={{ base: "44%", md: "30%" }}
+              fontSize={{ base: "15px", md: "20px" }}
+            >
+              Progresso
+            </Heading>
+            <Heading
+              fontSize={{ base: "15px", md: "20px" }}
+              ml={{ base: "2", md: "10" }}
+            >
+              Exercício
+            </Heading>
+          </Flex>
+
+          <Heading fontSize={{ base: "15px", md: "20px" }}>Atualizar</Heading>
         </Flex>
-        <FormControl>
-          <Progress colorScheme={"orange"} size={"lg"} hasStripe value={64} />
-        </FormControl>
-        <Flex>
-          <span>Progresso</span>
-          <span>Exercício</span>
-        </Flex>
-        {done &&
-          done.map((item, index) => {
+
+        {toDo &&
+          toDo.map((item, index) => {
             let ratio = (item.counter / item.freq) * 100;
             return (
-              <Flex key={index} w={"80%"}>
-                <FormControl>
-                  <Progress colorScheme={"orange"} value={ratio} />
-                </FormControl>
-                <p>{item.name}</p>
-                <button
+              <Flex
+                key={index}
+                w={"80%"}
+                alignItems={"center"}
+                justifyContent={"space-between"}
+              >
+                <Flex w={"75%"} alignItems={"center"}>
+                  <FormControl w={{ base: "20%", md: "30%" }}>
+                    <Progress colorScheme={"orange"} value={ratio} />
+                  </FormControl>
+                  <Text
+                    fontSize={{ base: "14px", md: "18px" }}
+                    ml={{ base: "2", md: "10" }}
+                  >
+                    {item.name}
+                  </Text>
+                </Flex>
+                <Button
+                  bgColor={"#ff9f1a"}
+                  _hover={{ filter: "brightness(1.1)" }}
+                  size={"sm"}
                   onClick={() => {
                     updateExercise(item, toast);
                   }}
                 >
-                  brabo
-                </button>
+                  Feito
+                </Button>
               </Flex>
             );
           })}
