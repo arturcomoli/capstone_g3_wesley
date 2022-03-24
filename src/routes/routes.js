@@ -7,9 +7,9 @@ import Dashboard from "../pages/Dashboard";
 
 import LandingPage from "../pages/LandingPage";
 
+import Routine from "../pages/Routine";
 
 import Profile from "../pages/Profile";
-// import Routine from "../pages/Routine";
 import Team from "../pages/Team";
 import Exercises from "../pages/Exercises";
 
@@ -28,10 +28,13 @@ const Routes = () => {
       <Route path="/dashboard">
         <Dashboard />
       </Route>
+      <Route path="/routine">
+        <Routine />
+      </Route>
+      </Route>
       <Route path="/profile">
         <Profile />
       </Route>
-      <Route path="/routine">{/* <Routine/> */}</Route>
       <Route path="/exercises">
         <Exercises />
       </Route>

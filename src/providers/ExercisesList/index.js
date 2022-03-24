@@ -136,8 +136,16 @@ export const ExercisesListProvider = ({ children }) => {
         });
         setUpdate(!update);
       })
-      .catch((err) => console.log(err));
+
+      .catch((err) =>
+        toast({
+          title: "Algo de errado ocorreu!",
+          status: "error",
+        })
+      );
   };
+
+
 
   const filterList = (filterWord) => {
     const newList = fullList.filter((item) => item.category === filterWord);
