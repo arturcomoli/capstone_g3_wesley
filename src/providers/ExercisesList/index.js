@@ -23,12 +23,12 @@ export const ExercisesListProvider = ({ children }) => {
       .catch((err) => console.log(err));
   };
 
-  useEffect(() => {
-    ListLoader();
-  });
-
   const [fullList, setFullList] = useState([]);
   const [filteredList, setFilteredList] = useState(fullList);
+
+  useEffect(() => {
+    ListLoader();
+  }, []);
 
   const addToUserList = async (data, toast) => {
     const { id } = user;
@@ -91,6 +91,7 @@ export const ExercisesListProvider = ({ children }) => {
         filterList,
         filteredList,
         setFilteredList,
+        ListLoader,
       }}
     >
       {children}
