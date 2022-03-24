@@ -23,19 +23,27 @@ export const ExercisesListProvider = ({ children }) => {
       .catch((err) => console.log(err));
   };
 
-  useEffect(() => {
-    ListLoader();
-  });
-
   const [fullList, setFullList] = useState([]);
   const [filteredList, setFilteredList] = useState(fullList);
+  const [userList, setUserList] = useState([]);
+  const [update, setUpdate] = useState(true);
+
+  useEffect(() => {
+    ListLoader();
+  }, []);
 
   const addToUserList = async (data, toast) => {
+    console.log(data);
     const { id } = user;
-    const newData = { ...data, userId: id };
+    delete data.img;
+    delete data.id;
+    delete data.instructions;
+    const newData = { ...data, userId: id, counter: 0, freq: 5 };
+    console.log(newData);
     await api
       .post("/userlists", newData, options)
       .then((res) => {
+        setUpdate(!update);
         toast({
           title: "Exercício cadastrado com sucesso!",
           status: "success",
@@ -69,16 +77,55 @@ export const ExercisesListProvider = ({ children }) => {
 
   const getUserList = async () => {
     const { id } = user;
-    const response = await api.get(`/users/${id}?_embed=userlists`, options);
-    const exercisesList = response.userlists;
-    return exercisesList;
+    await api
+      .get(`/users/${id}?_embed=userlists`, options)
+      .then((res) => {
+        setUserList(res.data.userlists);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    getUserList();
+  }, [update]);
+
+  const updateExercise = async (exercise, toast) => {
+    const { id, freq } = exercise;
+    let newCounter = exercise.counter;
+    let newExercise = {};
+    if (newCounter < freq) {
+      newCounter++;
+      newExercise = { ...exercise, counter: newCounter };
+    }
+    if (newCounter === freq) {
+      const date = new Date();
+      const formattedDate = new Intl.DateTimeFormat("pt-BR", {
+        dateStyle: "short",
+        timeStyle: "short",
+      }).format(date);
+      newExercise = {
+        ...exercise,
+        status: true,
+        counter: newCounter,
+        last: `${formattedDate}`,
+      };
+    }
+    await api
+      .put(`/userlists/${id}`, newExercise, options)
+      .then((res) => {
+        toast({
+          title: "Exercício atualizado!",
+          status: "success",
+        });
+        setUpdate(!update);
+      })
+      .catch((err) => console.log(err));
   };
 
   const filterList = (filterWord) => {
     const newList = fullList.filter((item) => item.category === filterWord);
     setFilteredList(newList);
   };
-
   return (
     <ExercisesListContext.Provider
       value={{
@@ -87,10 +134,14 @@ export const ExercisesListProvider = ({ children }) => {
         addToUserList,
         deleteFromUserList,
         getUserList,
+        updateExercise,
         fullList,
         filterList,
         filteredList,
         setFilteredList,
+        userList,
+        setUserList,
+        ListLoader,
       }}
     >
       {children}

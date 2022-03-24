@@ -1,13 +1,4 @@
-import {
-  Button,
-  Center,
-  Flex,
-  HStack,
-  Image,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
-import { AnimationOnScroll } from "react-animation-on-scroll";
+import { Button, Center, Image, Text } from "@chakra-ui/react";
 import { useHistory } from "react-router-dom";
 import logo from "../../assets/logo/Kenzie.WarmUp.svg";
 
@@ -15,6 +6,7 @@ const Footer = () => {
   const history = useHistory();
   return (
     <Center
+      mt={8}
       minH={"300px"}
       h={"10rem"}
       pt={"100px"}
@@ -22,9 +14,7 @@ const Footer = () => {
       flexDir={"column"}
       bgColor={"#000"}
     >
-      <AnimationOnScroll animateIn="animate__tada">
-        <Image alt="logo" src={logo} />
-      </AnimationOnScroll>
+      <Image alt="logo" src={logo} />
       <Center
         w={{ base: "100vw", md: "50vw" }}
         justifyContent={{ base: "space-around", md: "50vw" }}
