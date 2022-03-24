@@ -18,7 +18,7 @@ import { useHistory } from "react-router-dom";
 import { AiOutlineMenuUnfold } from "react-icons/ai";
 import logo from "../../assets/logo/Kenzie.WarmUpDark.svg";
 import logoWhite from "../../assets/logo/Kenzie.WarmUp.svg";
-const Header = ({logotype}) => {
+const Header = ({ logotype, bgWhite }) => {
   const history = useHistory();
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
@@ -57,7 +57,7 @@ const Header = ({logotype}) => {
         onClick={onOpen}
         fontSize={"1.6rem"}
         bg={"transparent"}
-        color={"#fff"}
+        color={bgWhite === "white" ? logoWhite : logo}
       >
         <AiOutlineMenuUnfold />
       </Button>

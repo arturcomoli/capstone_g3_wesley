@@ -23,6 +23,7 @@ import FruitImage from "../../assets/background/image30.png";
 import { AiOutlineMenuUnfold } from "react-icons/ai";
 import { Redirect, useHistory } from "react-router-dom";
 import { useAuthenticationProvider } from "../../providers/Authentication";
+import { AnimationOnScroll } from "react-animation-on-scroll";
 
 const LandingPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -62,17 +63,20 @@ const LandingPage = () => {
             alignItems={"center"}
             px={4}
           >
-            <Image
-              src={WhiteLogo}
-              alt={"logo"}
-              maxW={"280px"}
-              sx={{
-                "@media (max-width:768px)": {
-                  width: "240px",
-                },
-                "@media (max-width:425px)": { width: "150px" },
-              }}
-            />
+            <AnimationOnScroll initiallyVisible animateIn="animate__fadeIn">
+              <Image
+                src={WhiteLogo}
+                alt={"logo"}
+                maxW={"280px"}
+                sx={{
+                  "@media (max-width:768px)": {
+                    width: "240px",
+                  },
+                  "@media (max-width:425px)": { width: "150px" },
+                }}
+              />
+            </AnimationOnScroll>
+
             <Button
               sx={{
                 display: "none",
@@ -115,6 +119,7 @@ const LandingPage = () => {
             </HStack>
           </Flex>
         </MotionDiv>
+
         {/* Hidden Menu */}
         <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
           <DrawerOverlay />
@@ -176,31 +181,35 @@ const LandingPage = () => {
           justifyContent={"space-around"}
           color={"#fff"}
         >
-          <Image
-            src={RoutineImage}
-            w={{ base: "8em", md: "15em", lg: "22em" }}
-            borderRadius={12}
-          />
+          <AnimationOnScroll animateIn="animate__fadeInLeftBig">
+            <Image
+              src={RoutineImage}
+              w={{ base: "8em", md: "15em", lg: "22em" }}
+              borderRadius={12}
+            />
+          </AnimationOnScroll>
           <VStack spacing={{ base: 2, md: 6, lg: 8 }} justifyContent={"center"}>
-            <Text
-              w={{ base: "200px", md: "400px", lg: "500px" }}
-              fontFamily={"Montserrat"}
-              fontWeight={"bold"}
-              fontSize={{ base: "18px", md: "20px", lg: "36px" }}
-              lineHeight={{ base: "18px", md: "22px", lg: "40px" }}
-            >
-              O melhor aplicativo para controlar sua rotina
-            </Text>
-            <Text
-              w={{ base: "200px", md: "400px", lg: "500px" }}
-              fontFamily={"Montserrat"}
-              fontWeight={"400"}
-              fontSize={{ base: "14px", md: "22px", lg: "30px" }}
-              lineHeight={{ base: "14px", md: "22px", lg: "40px" }}
-            >
-              De forma simples e prática, você pode inserir novas atividades
-              para sua rotina e ter controle total de suas atividades diárias
-            </Text>
+            <AnimationOnScroll animateIn="animate__fadeInRightBig">
+              <Text
+                w={{ base: "200px", md: "400px", lg: "500px" }}
+                fontFamily={"Montserrat"}
+                fontWeight={"bold"}
+                fontSize={{ base: "18px", md: "20px", lg: "36px" }}
+                lineHeight={{ base: "18px", md: "22px", lg: "40px" }}
+              >
+                O melhor aplicativo para controlar sua rotina
+              </Text>
+              <Text
+                w={{ base: "200px", md: "400px", lg: "500px" }}
+                fontFamily={"Montserrat"}
+                fontWeight={"400"}
+                fontSize={{ base: "14px", md: "22px", lg: "30px" }}
+                lineHeight={{ base: "14px", md: "22px", lg: "40px" }}
+              >
+                De forma simples e prática, você pode inserir novas atividades
+                para sua rotina e ter controle total de suas atividades diárias
+              </Text>
+            </AnimationOnScroll>
           </VStack>
         </Flex>
       </Center>
@@ -216,32 +225,36 @@ const LandingPage = () => {
           color={"#fff"}
         >
           <VStack spacing={{ base: 2, md: 6, lg: 8 }} justifyContent={"center"}>
-            <Text
-              w={{ base: "200px", md: "400px", lg: "500px" }}
-              fontFamily={"Montserrat"}
-              fontWeight={"bold"}
-              fontSize={{ base: "18px", md: "20px", lg: "36px" }}
-              lineHeight={{ base: "18px", md: "22px", lg: "40px" }}
-            >
-              Dicas de exercícios e alongamentos
-            </Text>
-            <Text
-              w={{ base: "200px", md: "400px", lg: "500px" }}
-              fontFamily={"Montserrat"}
-              fontWeight={"400"}
-              fontSize={{ base: "14px", md: "22px", lg: "30px" }}
-              lineHeight={{ base: "14px", md: "22px", lg: "40px" }}
-            >
-              Muitas horas em frente o computador pode gerar algumas dores pelo
-              corpo. Confira algumas dicas para alongar as pernas e manter o seu
-              bem estar
-            </Text>
+            <AnimationOnScroll animateIn="animate__fadeInLeftBig">
+              <Text
+                w={{ base: "200px", md: "400px", lg: "500px" }}
+                fontFamily={"Montserrat"}
+                fontWeight={"bold"}
+                fontSize={{ base: "18px", md: "20px", lg: "36px" }}
+                lineHeight={{ base: "18px", md: "22px", lg: "40px" }}
+              >
+                Dicas de exercícios e alongamentos
+              </Text>
+              <Text
+                w={{ base: "200px", md: "400px", lg: "500px" }}
+                fontFamily={"Montserrat"}
+                fontWeight={"400"}
+                fontSize={{ base: "14px", md: "22px", lg: "30px" }}
+                lineHeight={{ base: "14px", md: "22px", lg: "40px" }}
+              >
+                Muitas horas em frente o computador pode gerar algumas dores
+                pelo corpo. Confira algumas dicas para alongar as pernas e
+                manter o seu bem estar
+              </Text>
+            </AnimationOnScroll>
           </VStack>
-          <Image
-            src={CatImage}
-            w={{ base: "8em", md: "15em", lg: "22em" }}
-            borderRadius={12}
-          />
+          <AnimationOnScroll animateIn="animate__fadeInRightBig">
+            <Image
+              src={CatImage}
+              w={{ base: "8em", md: "15em", lg: "22em" }}
+              borderRadius={12}
+            />
+          </AnimationOnScroll>
         </Flex>
       </Center>
       <Center
@@ -255,32 +268,37 @@ const LandingPage = () => {
           justifyContent={"space-around"}
           color={"#000"}
         >
-          <Image
-            src={FruitImage}
-            w={{ base: "8em", md: "15em", lg: "22em" }}
-            borderRadius={12}
-          />
+          <AnimationOnScroll animateIn="animate__fadeInLeftBig">
+            <Image
+              src={FruitImage}
+              w={{ base: "8em", md: "15em", lg: "22em" }}
+              borderRadius={12}
+            />
+          </AnimationOnScroll>
+
           <VStack spacing={{ base: 2, md: 6, lg: 8 }} justifyContent={"center"}>
-            <Text
-              w={{ base: "200px", md: "400px", lg: "500px" }}
-              fontFamily={"Montserrat"}
-              fontWeight={"bold"}
-              fontSize={{ base: "18px", md: "20px", lg: "36px" }}
-              lineHeight={{ base: "18px", md: "22px", lg: "40px" }}
-              color={"#ff9f1a"}
-            >
-              Recomendações para suas refeições
-            </Text>
-            <Text
-              w={{ base: "200px", md: "400px", lg: "500px" }}
-              fontFamily={"Montserrat"}
-              fontWeight={"400"}
-              fontSize={{ base: "14px", md: "22px", lg: "30px" }}
-              lineHeight={{ base: "14px", md: "22px", lg: "40px" }}
-            >
-              Separamos algumas refeições diárias e periódicas que vão te fazer
-              bem
-            </Text>
+            <AnimationOnScroll animateIn="animate__fadeInRightBig">
+              <Text
+                w={{ base: "200px", md: "400px", lg: "500px" }}
+                fontFamily={"Montserrat"}
+                fontWeight={"bold"}
+                fontSize={{ base: "18px", md: "20px", lg: "36px" }}
+                lineHeight={{ base: "18px", md: "22px", lg: "40px" }}
+                color={"#ff9f1a"}
+              >
+                Recomendações para suas refeições
+              </Text>
+              <Text
+                w={{ base: "200px", md: "400px", lg: "500px" }}
+                fontFamily={"Montserrat"}
+                fontWeight={"400"}
+                fontSize={{ base: "14px", md: "22px", lg: "30px" }}
+                lineHeight={{ base: "14px", md: "22px", lg: "40px" }}
+              >
+                Separamos algumas refeições diárias e periódicas que vão te
+                fazer bem
+              </Text>
+            </AnimationOnScroll>
           </VStack>
         </Flex>
       </Center>
@@ -296,24 +314,29 @@ const LandingPage = () => {
           justifyContent={"space-around"}
           spacing={8}
         >
-          <Image
-            src={WhiteLogo}
-            w={{ base: "15em", md: "18em", lg: "22em" }}
-            borderRadius={12}
-          />
-          <Text
-            w={{ base: "90vw" }}
-            fontFamily={"Montserrat"}
-            fontWeight={"400"}
-            fontSize={{ base: "11px", md: "14px", lg: "16px" }}
-            lineHeight={{ base: "11px", md: "14px", lg: "16px" }}
-          >
-            Copyright©2022, KenzieWorkout. Todos os direitos reservados. Todos
-            os textos, imagens, gráficos, animações, vídeos, músicas, sons e
-            outros materiais são protegidos por direitos autorais e outros
-            direitos de propriedade intelectual pertencentes à KenzieWorkout,
-            suas subsidiárias, afiliadas e licenciantes.
-          </Text>
+          <AnimationOnScroll animateIn="animate__tada">
+            <Image
+              src={WhiteLogo}
+              w={{ base: "15em", md: "18em", lg: "22em" }}
+              borderRadius={12}
+            />
+          </AnimationOnScroll>
+          <AnimationOnScroll animateIn="animate__fadeIn">
+            <Text
+              w={{ base: "90vw" }}
+              fontFamily={"Montserrat"}
+              fontWeight={"400"}
+              fontSize={{ base: "11px", md: "14px", lg: "16px" }}
+              lineHeight={{ base: "11px", md: "14px", lg: "16px" }}
+              textAlign={"center"}
+            >
+              Copyright©2022, KenzieWorkout. Todos os direitos reservados. Todos
+              os textos, imagens, gráficos, animações, vídeos, músicas, sons e
+              outros materiais são protegidos por direitos autorais e outros
+              direitos de propriedade intelectual pertencentes à KenzieWorkout,
+              suas subsidiárias, afiliadas e licenciantes.
+            </Text>
+          </AnimationOnScroll>
         </VStack>
       </Center>
     </VStack>
