@@ -32,6 +32,10 @@ export const ExercisesListProvider = ({ children }) => {
     ListLoader();
   }, []);
 
+  useEffect(() => {
+    ListLoader();
+  }, []);
+
   const addToUserList = async (data, toast) => {
     console.log(data);
     const { id } = user;
