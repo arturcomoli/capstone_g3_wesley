@@ -20,6 +20,7 @@ const Footer = () => {
       pt={"100px"}
       justifyContent={"space-around"}
       flexDir={"column"}
+      bgColor={"#000"}
     >
       <AnimationOnScroll animateIn="animate__tada">
         <Image alt="logo" src={logo} />
