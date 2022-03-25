@@ -12,7 +12,7 @@ import ravi from "../../assets/team/ravi.jpeg";
 
 const Team = () => {
   return (
-    <VStack minH={"100vh"} minW={"100vw"}>
+    <VStack minH={"100vh"} minW={"100vw"} overflowX={"hidden"}>
       <Header />
       <Center w={"100%"}>
         <SimpleGrid

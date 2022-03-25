@@ -7,8 +7,6 @@ import {
   Center,
   Flex,
   FormControl,
-  FormErrorMessage,
-  FormHelperText,
   FormLabel,
   Image,
   Input,
@@ -28,10 +26,8 @@ import LogoWhite from "../../assets/logo/Kenzie.WarmUp.svg";
 
 import { MotionCenter, MotionDiv } from "./motion";
 
-
 import { useAuthenticationProvider } from "../../providers/Authentication";
 import { Redirect } from "react-router-dom";
-
 
 const Login = () => {
   const history = useHistory();
