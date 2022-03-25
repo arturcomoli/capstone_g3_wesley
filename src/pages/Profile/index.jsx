@@ -38,7 +38,7 @@ const Profile = () => {
     return acc + act.counter;
   }, 0);
   const showProgress = (toDo / total) * 100;
-  const formattedProgress = showProgress.toFixed(0);
+  const formattedProgress = Number(showProgress.toFixed(0));
 
   return (
     <VStack bgColor={"#eee"} minH={"100vh"} overflowX={"hidden"}>
@@ -60,7 +60,7 @@ const Profile = () => {
             name={user.name}
             src=""
             bg="orange.500"
-            color="white"            
+            color="white"
             size={"xl"}
           />
           <VStack
@@ -156,7 +156,7 @@ const Profile = () => {
                   color={"orange.500"}
                 >
                   <CircularProgressLabel fontSize={"20px"}>
-                    {`${formattedProgress}%`}
+                    {`${isNaN(formattedProgress) ? `0` : formattedProgress}%`}
                   </CircularProgressLabel>
                 </CircularProgress>
               </Box>

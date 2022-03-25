@@ -57,9 +57,11 @@ export const AuthenticationProvider = ({ children }) => {
       );
   };
 
-  const handleLogout = (history) => {
+  const handleLogout = (history, setUserList, setFilteredList) => {
     setToken("");
     setUserInfo("");
+    setUserList([]);
+    setFilteredList([]);
     localStorage.clear();
     history.push("/");
   };

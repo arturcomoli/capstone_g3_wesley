@@ -21,7 +21,6 @@ import { MotionDiv } from "./motion";
 const Exercises = () => {
   const { fullList, filterList, filteredList, setFilteredList } =
     useExercisesListProvider();
-
   const { token } = useAuthenticationProvider();
 
   const [isRender, setRender] = useState(true);

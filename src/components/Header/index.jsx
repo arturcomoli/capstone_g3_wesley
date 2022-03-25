@@ -16,9 +16,11 @@ import { AiOutlineMenuUnfold } from "react-icons/ai";
 import logo from "../../assets/logo/Kenzie.WarmUpDark.svg";
 import logoWhite from "../../assets/logo/Kenzie.WarmUp.svg";
 import { useAuthenticationProvider } from "../../providers/Authentication";
+import { useExercisesListProvider } from "../../providers/ExercisesList";
 const Header = ({ logotype, bgWhite }) => {
   const history = useHistory();
   const { handleLogout } = useAuthenticationProvider();
+  const { setUserList, setFilteredList } = useExercisesListProvider();
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Flex
@@ -104,7 +106,7 @@ const Header = ({ logotype, bgWhite }) => {
           bg={"#000000"}
           color={"#ffffff"}
           _hover={{ bgColor: "#ff9f1a" }}
-          onClick={() => handleLogout(history)}
+          onClick={() => handleLogout(history, setUserList, setFilteredList)}
         >
           Logout
         </Button>
@@ -145,7 +147,9 @@ const Header = ({ logotype, bgWhite }) => {
                 bg={"#2b2b3c"}
                 color={"#ffffff"}
                 _hover={{ filter: "brightness(1.4)" }}
-                onClick={() => handleLogout(history)}
+                onClick={() =>
+                  handleLogout(history, setUserList, setFilteredList)
+                }
               >
                 Logout
               </Button>
