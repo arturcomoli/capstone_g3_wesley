@@ -1,6 +1,7 @@
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import {
+  Box,
   Button,
   Flex,
   FormControl,
@@ -51,11 +52,14 @@ const Routine = () => {
             <Header />
           </MotionDiv>
           <HStack justifyContent={"flex-end"} w={"90vw"}>
-            <VStack mt={{ base: "2.5rem", md: "4rem", lg: "6rem" }}>
-              <MotionDiv
-                initial={{ x: 200, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ duration: 0.75 }}
+            <MotionDiv
+              initial={{ x: 200, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.75 }}
+            >
+              <VStack
+                alignItems={"flex-end"}
+                mt={{ base: "2.5rem", md: "4rem", lg: "6rem" }}
               >
                 <Text
                   as={"h2"}
@@ -69,22 +73,25 @@ const Routine = () => {
                 >
                   DEFINA SEUS HORÁRIOS
                 </Text>
-                <Text
-                  as={"h3"}
-                  color={"#ff9f1a"}
-                  fontWeight={"600"}
-                  fontFamily={"Montserrat, sans-serif"}
-                  fontStyle={"italic"}
-                  textAlign={"right"}
-                  w={{ base: "150px", md: "400px", lg: "600px" }}
-                  alignSelf={"self-end"}
-                  fontSize={{ base: "14px", md: "25px", lg: "40px" }}
-                  lineHeight={{ base: "14px", md: "25px", lg: "40px" }}
-                >
-                  organize-se
-                </Text>
-              </MotionDiv>
-            </VStack>
+                <Box bgColor={"#ff9f1a"} w={"auto"} p={3}>
+                  <Text
+                    as={"h3"}
+                    color={"#fff"}
+                    fontWeight={"600"}
+                    fontFamily={"Montserrat, sans-serif"}
+                    fontStyle={"italic"}
+                    textAlign={"right"}
+                    w={"auto"}
+                    // w={{ base: "150px", md: "400px", lg: "600px" }}
+                    alignSelf={"self-end"}
+                    fontSize={{ base: "14px", md: "25px", lg: "40px" }}
+                    lineHeight={{ base: "14px", md: "25px", lg: "40px" }}
+                  >
+                    organize-se
+                  </Text>
+                </Box>
+              </VStack>
+            </MotionDiv>
           </HStack>
         </VStack>
       </VStack>
