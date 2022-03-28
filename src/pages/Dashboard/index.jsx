@@ -184,7 +184,7 @@ const Dashboard = () => {
                 fontSize={"18px"}
                 lineHeight={"22px"}
               >
-                Dor nas Costas
+                Dor no Pescoço
               </Text>
             </VStack>
           </Box>
